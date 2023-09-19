@@ -38,6 +38,7 @@ INSTALLED_APPS = [
     "django.contrib.messages",
     "django.contrib.staticfiles",
     "tailwind",
+    "task",
 ]
 
 MIDDLEWARE = [
@@ -83,7 +84,7 @@ DATABASES = {
         "HOST": "localhost",
         "PORT": "3306",
         "OPTIONS": {
-            "unix_socket": "/Applications/XAMPP/xamppfiles/var/mysql/mysql.sock",  # Update this path
+            "unix_socket": "/Applications/XAMPP/xamppfiles/var/mysql/mysql.sock",
         },
     }
 }
