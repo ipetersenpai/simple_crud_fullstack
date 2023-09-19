@@ -79,9 +79,12 @@ DATABASES = {
         "ENGINE": "django.db.backends.mysql",
         "NAME": "todolist",
         "USER": "root",
-        "PASSWORD": "rootadmin",
+        "PASSWORD": "",
         "HOST": "localhost",
-        "PORT": "3308",
+        "PORT": "3306",
+        "OPTIONS": {
+            "unix_socket": "/Applications/XAMPP/xamppfiles/var/mysql/mysql.sock",  # Update this path
+        },
     }
 }
 
