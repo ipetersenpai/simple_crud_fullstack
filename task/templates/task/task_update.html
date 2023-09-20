@@ -1,0 +1,93 @@
+{% load static tailwind_tags %}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>TodoList</title>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    {% tailwind_css %}
+  </head>
+
+  <body
+    class="relative bg-cover h-screen w-screen flex flex-col leading-normal tracking-normal text-black"
+    style="background-image: url('/theme/static/images/background.png')"
+  >
+    <!-- Navigation bar component -->
+    <section
+      class="flex bg-black w-full h-[65px] text-white justify-between items-center"
+    >
+      <h1 class="text-[32px] md:text-[42px] ml-4 font-bold">Todo List</h1>
+
+      <button
+        class="mr-4 hover:underline cursor-pointer text-[20px] hover:text-blue-400"
+      >
+        Need Help
+      </button>
+    </section>
+    <!-- End of navigation bar component -->
+
+    <!-- Todo task update component -->
+    <section
+      class="flex gap-5 flex-col w-full h-full md:p-7 p-4 justify-center items-center"
+    >
+      <div class="bg-white w-full md:w-[499px] rounded-2xl p-5">
+        <p class="font-bold text-[30px] text-center mt-5 mb-10">
+          UPDATE TODO TASK
+        </p>
+        <form method="post">
+          {% csrf_token %}
+          <div class="flex flex-col items-center mb-2">
+            <span class="self-start ml-6 font-bold text-[15px] mb-1"
+              >Task title:</span
+            >
+            <input
+              class="rounded-md w-[90%]"
+              type="text"
+              name="title"
+              value="{{ task.title }}"
+            />
+          </div>
+          <div class="flex flex-col items-center mb-10">
+            <span class="self-start ml-6 font-bold text-[15px] mb-1"
+              >Task description:</span
+            >
+            <textarea
+              class="rounded-md h-[170px] w-[90%] flex justify-start items-start"
+              name="content"
+            >
+{{ task.content }}</textarea
+            >
+          </div>
+          <div class="flex flex-row justify-end mr-5 mb-5">
+            <button
+              id="back-button"
+              type="button"
+              class="border-[2px] border-[#292929] text-black font-bold px-7 rounded-xl"
+            >
+              Back
+            </button>
+            <button
+              type="submit"
+              class="bg-[#292929] text-white font-bold p-2.5 rounded-xl ml-1"
+            >
+              Update
+            </button>
+          </div>
+        </form>
+      </div>
+    </section>
+
+    <!-- End of Todo task update component -->
+
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        document
+          .getElementById("back-button")
+          .addEventListener("click", function () {
+            window.location.href = "/";
+          });
+      });
+    </script>
+  </body>
+</html>
