@@ -10,16 +10,99 @@
   </head>
 
   <body
-    class="bg-cover h-screen w-screen flex leading-normal tracking-normal"
+    class="relative bg-cover h-screen w-screen flex flex-col leading-normal tracking-normal text-black"
     style="background-image: url('/theme/static/images/background.png')"
   >
     <!-- Navigation bar component -->
-    <section class="flex bg-black w-full h-[65px] text-white justify-between">
-      <h1 class="text-[42px] ml-4 font-bold">Todo List</h1>
-      <div class="h-full flex justify-center text-[20px] gap-10">
-        <button class="hover:underline cursor-pointer">About</button>
-        <button class="mr-4 hover:underline cursor-pointer">Need Help</button>
-      </div>
+    <section
+      class="flex bg-black w-full h-[65px] text-white justify-between items-center"
+    >
+      <h1 class="text-[32px] md:text-[42px] ml-4 font-bold">Todo List</h1>
+
+      <button
+        class="mr-4 hover:underline cursor-pointer text-[20px] hover:text-blue-400"
+      >
+        Need Help
+      </button>
     </section>
+    <!-- End of navigation bar component -->
+
+    <!-- Todo task list component -->
+    <section class="flex gap-5 flex-wrap flex-row w-full h-full p-7">
+      {% for task in tasks %}
+      <div class="task-item">
+        <div
+          class="flex flex-col bg-white h-[351px] w-[314px] p-4 rounded-[12px] justify-between"
+        >
+          <div>
+            <h2 class="text-[#7B7B7A] font-bold text-[22px]">To do:</h2>
+            <h1 class="font-bold text-[32px] mt-[-1rem] mb-2">
+              {{ task.title }}
+            </h1>
+            <p>{{ task.content }}</p>
+          </div>
+          <div class="flex flex-row justify-end">
+            <button
+              class="bg-cover h-[38px] w-[38px] mx-1 mt-[1px]"
+              style="background-image: url('/theme/static/images/edit.png')"
+            />
+            <button
+              class="bg-cover h-[40px] w-[38px] mx-1"
+              style="background-image: url('/theme/static/images/trash.png')"
+              data-task-id="{{ task.id }}"
+            />
+            <button
+              class="bg-[#292929] text-white font-bold p-2.5 rounded-xl ml-1"
+              data-task-id="{{ task.id }}"
+            >
+              COMPLETE
+            </button>
+          </div>
+        </div>
+      </div>
+      {% endfor %}
+    </section>
+    <!-- End of Todo task list component -->
+
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        document
+          .getElementById("complete-button")
+          .addEventListener("click", function () {
+            window.location.href = "{% url 'task-success' %}";
+          });
+      });
+
+      document.addEventListener("DOMContentLoaded", function () {
+        const completeButtons = document.querySelectorAll("[data-task-id]");
+
+        completeButtons.forEach((button) => {
+          button.addEventListener("click", function () {
+            const taskId = button.dataset.taskId;
+
+            // Send an AJAX request to delete the task
+            fetch(`/delete/${taskId}/`, {
+              method: "DELETE",
+              headers: {
+                "X-CSRFToken": "{{ csrf_token }}", // Include the CSRF token
+                "Content-Type": "application/json",
+              },
+            })
+              .then((response) => {
+                if (response.ok) {
+                  // Task deleted successfully
+                  button.closest(".task-item").remove();
+                } else {
+                  // Handle any errors here
+                  console.error("Error deleting task");
+                }
+              })
+              .catch((error) => {
+                console.error("Error deleting task", error);
+              });
+          });
+        });
+      });
+    </script>
   </body>
 </html>
