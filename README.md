@@ -3,6 +3,9 @@
 This project is about Todo list application that let the user to create, read, update and delete.
 The project use Django alone (both frontend and backend) and it use Mysql for the database.
 
+### Project prototype link
+https://www.figma.com/file/CRbRADDSsn7gEetNQ9jINl/todolist-robante?type=design&mode=design&t=vmDm2BYCL2uGpQ0F-0
+
 ## Installation guide
 Make sure to have pipenv, python and django installed on your device.
 
