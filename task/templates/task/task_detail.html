@@ -10,7 +10,7 @@
   </head>
 
   <body
-    class="relative bg-cover h-screen w-screen flex flex-col leading-normal tracking-normal text-black"
+    class="relative bg-cover bg-no-repeat h-full w-full flex flex-col leading-normal tracking-normal text-black"
     style="background-image: url('/theme/static/images/background.png')"
   >
     <!-- Navigation bar component -->
@@ -43,16 +43,19 @@
           </div>
           <div class="flex flex-row justify-end">
             <button
-              class="bg-cover h-[38px] w-[38px] mx-1 mt-[1px]"
+              id="update-button-{{ task.id }}"
+              class="bg-cover h-[38px] w-[38px] mx-1 mt-[1px] update-button"
               style="background-image: url('/theme/static/images/edit.png')"
+              data-task-id="{{ task.id }}"
             />
+
             <button
-              class="bg-cover h-[40px] w-[38px] mx-1"
+              class="delete-button bg-cover h-[40px] w-[38px] mx-1"
               style="background-image: url('/theme/static/images/trash.png')"
               data-task-id="{{ task.id }}"
             />
             <button
-              class="bg-[#292929] text-white font-bold p-2.5 rounded-xl ml-1"
+              class="delete-button bg-[#292929] text-white font-bold p-2.5 rounded-xl ml-1"
               data-task-id="{{ task.id }}"
             >
               COMPLETE
@@ -65,11 +68,21 @@
     <!-- End of Todo task list component -->
 
     <section
-      class="absolute h-[65px] w-[65px] bg-white rounded-[50%] right-4 bottom-4 flex justify-center items-center shadow-lg cursor-pointer"
+      class="fixed h-[65px] w-[65px] bg-white rounded-[50%] right-4 bottom-4 flex justify-center items-center shadow-lg cursor-pointer"
+      id="create-button"
+      type="button"
     >
       <p class="text-[65px] mt-[-0.5rem]">+</p>
     </section>
     <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        document
+          .getElementById("create-button")
+          .addEventListener("click", function () {
+            window.location.href = "/create";
+          });
+      });
+
       document.addEventListener("DOMContentLoaded", function () {
         document
           .getElementById("complete-button")
@@ -79,9 +92,18 @@
       });
 
       document.addEventListener("DOMContentLoaded", function () {
-        const completeButtons = document.querySelectorAll("[data-task-id]");
+        const updateButtons = document.querySelectorAll(".update-button");
 
-        completeButtons.forEach((button) => {
+        updateButtons.forEach((button) => {
+          button.addEventListener("click", function () {
+            const taskId = button.dataset.taskId;
+            window.location.href = `/update/${taskId}/`;
+          });
+        });
+
+        const deleteButtons = document.querySelectorAll(".delete-button");
+
+        deleteButtons.forEach((button) => {
           button.addEventListener("click", function () {
             const taskId = button.dataset.taskId;
 

@@ -33,9 +33,9 @@
     >
       <div class="bg-white w-full md:w-[499px] rounded-2xl p-5">
         <p class="font-bold text-[30px] text-center mt-5 mb-10">
-          CREATE NEW TASK
+          UPDATE TODO TASK
         </p>
-        <form method="post" action="{% url 'task-create' %}">
+        <form method="post">
           {% csrf_token %}
           <div class="flex flex-col items-center mb-2">
             <span class="self-start ml-6 font-bold text-[15px] mb-1"
@@ -45,7 +45,7 @@
               class="rounded-md w-[90%]"
               type="text"
               name="title"
-              placeholder="Add your title here"
+              value="{{ task.title }}"
             />
           </div>
           <div class="flex flex-col items-center mb-10">
@@ -53,10 +53,11 @@
               >Task description:</span
             >
             <textarea
-              class="rounded-md h-[170px] w-[90%]"
+              class="rounded-md h-[170px] w-[90%] flex justify-start items-start"
               name="content"
-              placeholder="Add your description here"
-            ></textarea>
+            >
+{{ task.content }}</textarea
+            >
           </div>
           <div class="flex flex-row justify-end mr-5 mb-5">
             <button
@@ -70,7 +71,7 @@
               type="submit"
               class="bg-[#292929] text-white font-bold p-2.5 rounded-xl ml-1"
             >
-              COMPLETE
+              Update
             </button>
           </div>
         </form>

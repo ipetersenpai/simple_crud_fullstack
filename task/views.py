@@ -6,12 +6,6 @@ from .forms import TaskForm
 # Create your views here.
 
 
-# Render all the task list
-def task_list(request):
-    tasks = Task.objects.all()
-    return render(request, "task/task_detail.html", {"tasks": tasks})
-
-
 # Create a new task
 def task_create(request):
     if request.method == "POST":
@@ -23,6 +17,31 @@ def task_create(request):
         form = TaskForm()
 
     return render(request, "task/task_create.html", {"form": form})
+
+
+# Render all the task list
+def task_list(request):
+    tasks = Task.objects.all()
+    return render(request, "task/task_detail.html", {"tasks": tasks})
+
+
+# Update a task
+def update_task(request, task_id):
+    try:
+        task = Task.objects.get(pk=task_id)
+    except Task.DoesNotExist:
+        # Handle the case where the task does not exist (optional)
+        pass
+
+    if request.method == "POST":
+        form = TaskForm(request.POST, instance=task)  # Use TaskForm instead of form
+        if form.is_valid():
+            form.save()
+            return redirect("task-list")
+    else:
+        form = TaskForm(instance=task)  # Use TaskForm instead of form
+
+    return render(request, "task/task_update.html", {"form": form, "task": task})
 
 
 # Delete a task
