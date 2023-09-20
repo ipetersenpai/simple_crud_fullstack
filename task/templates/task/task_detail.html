@@ -42,18 +42,20 @@
             <p>{{ task.content }}</p>
           </div>
           <div class="flex flex-row justify-end">
+            <!-- update button (when press the task will direct to the update page) -->
             <button
               id="update-button-{{ task.id }}"
               class="bg-cover h-[38px] w-[38px] mx-1 mt-[1px] update-button"
               style="background-image: url('/theme/static/images/edit.png')"
               data-task-id="{{ task.id }}"
             />
-
+            <!-- delete button (when press the task will be deleted) -->
             <button
               class="delete-button bg-cover h-[40px] w-[38px] mx-1"
               style="background-image: url('/theme/static/images/trash.png')"
               data-task-id="{{ task.id }}"
             />
+            <!-- complete button (when press the task will be deleted) -->
             <button
               class="delete-button bg-[#292929] text-white font-bold p-2.5 rounded-xl ml-1"
               data-task-id="{{ task.id }}"
