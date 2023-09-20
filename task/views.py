@@ -13,7 +13,7 @@ def task_list(request):
 
 
 # Create a new task
-def create_task(request):
+def task_create(request):
     if request.method == "POST":
         form = TaskForm(request.POST)
         if form.is_valid():
@@ -22,7 +22,7 @@ def create_task(request):
     else:
         form = TaskForm()
 
-    return render(request, "task_create.html", {"form": form})
+    return render(request, "task/task_create.html", {"form": form})
 
 
 # Delete a task
