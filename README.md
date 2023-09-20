@@ -26,7 +26,7 @@ I used django tailwind for the styling. install the following command below.
   python manage.py tailwind install
 ```
 ### Step: 3
-Run the migrations command below to apply migrations and to create the detabase schema.
+Run the migrations command below to apply migrations and to create the database schema.
 ```
 python manage.py migrate
 ```
