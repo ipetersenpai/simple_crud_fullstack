@@ -17,7 +17,7 @@ Activate your environment in order to run the following command.
 ### Step: 2
 I used django tailwind for the styling. install the following command below.
 ```
-  python -m pip install django-tailwind
+  python -m pip install django-tailwind 
 ```
 ```
   python -m pip install "django-tailwind[reload]"
